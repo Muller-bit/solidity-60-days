@@ -19,4 +19,5 @@ Each day contains:
 
 See progress.md for daily tracking.
 
+![alt text](image-1.png)
 ![alt text](image.png)

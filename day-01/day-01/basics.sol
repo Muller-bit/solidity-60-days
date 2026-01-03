@@ -12,10 +12,10 @@ contract Basics{
      // that sets the values of 
      // the state variables var1 and var2
  
-     function set(uint x , uint y)public view returns(uint){
+     function set(uint x , uint y)public pure returns(uint){
         var1 = x;
         var2 = y;
-        sum var1 + var2;
+        sum = var1 + var2;
      }
 
      // Defining  function to 

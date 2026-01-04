@@ -9,15 +9,34 @@ contract ERC20Token {
     //total supply
     uint256 public _totalSupply = 500;
 
-    function totalSupply() public view returns (uint256) {}
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 amount
+    );
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function totalSupply() public view returns (uint256) {
+        return _totalSupply;
+    }
 
     // function approve for spending
 
-    function approve(address _spender, uint _amount) public returns (bool) {}
+    function approve(address _spender, uint _amount) public returns (bool) {
+        emit Approval(msg.sender, _spender, _amount);
+        return true;
+    }
 
     //function  transfer
 
-    function transfer(address _to, uint256 _amount) public returns (bool) {}
+    function transfer(address _to, uint256 _amount) public returns (bool) {
+        emit Transfer(msg.sender, _to, _amount);
+        return true;
+    }
 
     //function transfer_From
 

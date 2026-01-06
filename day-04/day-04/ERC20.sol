@@ -4,32 +4,57 @@ pragma solidity ^0.8.0;
 //basic ERC-20 implementation
 
 contract ERC20Token {
-    address public owner;
+    mapping(address => uint256) balances;
+    mapping(address => mapping(address => uint256)) allowed; //nested mapping
 
     //total supply
     uint256 public _totalSupply = 500;
+
+    //owner address
+    address public owner;
+
+    //triggrere whenever
+    //approve(address _spender , uint256 _amount) is called
 
     event Approval(
         address indexed owner,
         address indexed spender,
         uint256 amount
     );
-    event Transfer(address indexed from, address indexed to, uint256 amount);
+
+    //triggrere whenever
+    // transfer (address _to , uint256 _amount) is called
+    event Transfer(address indexed _from, address indexed to, uint256 amount);
 
     constructor() {
         owner = msg.sender;
     }
 
-    function totalSupply() public view returns (uint256) {
-        return _totalSupply;
+    //total supply function
+    function totalSupply() public view returns (uint256 theTotalSupply) {
+        theTotalSupply = _totalSupply;
+
+        return theTotalSupply;
     }
+
+    // balanceOf function
+
+    function balanceOf(address _tokenOwner) public view returns (uint256 balance) {
+        balance = balances[_tokenOwner];
+    }
+
 
     // function approve for spending
 
-    function approve(address _spender, uint _amount) public returns (bool) {
+    function approve(address _spender, uint256 _amount) public returns (bool success) {
+    
+    }
+
+ allowed[msg.sender][_spender] = _amount;
         emit Approval(msg.sender, _spender, _amount);
         return true;
-    }
+
+    
 
     //function  transfer
 
@@ -54,12 +79,6 @@ contract ERC20Token {
         address _tokenOwner,
         address _spender
     ) public view returns (uint256) {}
-
-    //function balance_of
-
-    function balanceOf(address _tokenOwner) public view returns (uint) {
-        //
-    }
 
     //function owner
 }

@@ -18,3 +18,36 @@ contract Child is Parent {
         return value;
     }
 }
+// Example with virtual and override , Base and Derived
+
+contract Base {
+    function greet() public pure virtual returns (string memory) {
+        return "Hello from Base";
+    }
+}
+
+contract Derived is Base {
+    function greet() public pure override returns (string memory) {
+        return "Hello from Derived";
+    }
+}
+
+// Another example with multiple inheritance
+
+contract A {
+    function foo() public pure virtual returns (string memory) {
+        return "A";
+    }
+}
+
+contract B is A {
+    function foo() public pure virtual override returns (string memory) {
+        return "B";
+    }
+}
+
+contract C is B {
+    function foo() public pure override returns (string memory) {
+        return "C";
+    }
+}

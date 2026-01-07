@@ -1,7 +1,34 @@
-## Pure vs View
+## Solidity Inheritance — Building on Existing Code
 
-- view and pure functions exist to save gas, improve security and separate logic from state changes.
-  view is used for reading blockchain data, while
+- Inheritance allows a contract to acquire properties and behavior (state variables and functions) from another contract.
 
-- Pure is used for calculations that do not depend on blockchain state.
-  They are essential for frontends, testing, and professional smart contract design.
+- Solidity uses the "is" keyword to establish inheritance.
+
+- Core concepts:
+
+## Base & Derived:-
+
+- The "Parent" contract is the Base,
+- the "Child" contract is Derived.
+
+- The virtual Keyword:-
+- to allow a Child contract to modify the parent contract's function.
+- mark that function in the Parent contract as "virtual"
+
+The override Keyword:-
+
+- Child contract use the override keyword to changes a parent's function.
+
+## Multiple Inheritance:-
+
+- A single contract can inherit from multiple parents.
+
+- Access Levels:-
+
+- internal functions are visible to children, but private functions are not!
+
+Key note:
+
+1. Simple Inheritance
+2. Virtual/Override functions
+3. Multiple Inheritance

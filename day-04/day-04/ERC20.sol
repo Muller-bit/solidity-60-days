@@ -73,7 +73,7 @@ contract ERC20Token {
         //
     }
 
-    //function allowance
+    //function allowance, allowing spender to spend on behalf of token owner
 
     function allowance(
         address _tokenOwner,

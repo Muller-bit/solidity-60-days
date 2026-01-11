@@ -33,3 +33,7 @@ fallback() is triggered when:-
 - Function does not exist
 - msg.data is not empty
 - must be external, payable
+
+#
+
+![alt text](image.png)

@@ -1,84 +1,120 @@
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+// Compatible with version
+pragma solidity ^0.8.6;
 
-//basic ERC-20 implementation
-
-contract ERC20Token {
+// Creating a Contract
+contract GFGToken {
+    // Table to map addresses
+    // to their balance
     mapping(address => uint256) balances;
-    mapping(address => mapping(address => uint256)) allowed; //nested mapping
 
-    //total supply
-    uint256 public _totalSupply = 500;
+    // Mapping owner address to
+    // those who are allowed to
+    // use the contract
+    mapping(address => mapping(address => uint256)) allowed;
 
-    //owner address
+    // totalSupply
+    uint256 _totalSupply = 500;
+
+    // owner address
     address public owner;
 
-    //triggrere whenever
-    //approve(address _spender , uint256 _amount) is called
-
+    // Triggered whenever
+    // approve(address _spender, uint256 _value)
+    // is called.
     event Approval(
-        address indexed owner,
-        address indexed spender,
-        uint256 amount
+        address indexed _owner,
+        address indexed _spender,
+        uint256 _value
     );
 
-    //triggrere whenever
-    // transfer (address _to , uint256 _amount) is called
-    event Transfer(address indexed _from, address indexed to, uint256 amount);
+    // Event triggered when
+    // tokens are transferred.
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
-    constructor() {
-        owner = msg.sender;
-    }
-
-    //total supply function
+    // totalSupply function
     function totalSupply() public view returns (uint256 theTotalSupply) {
         theTotalSupply = _totalSupply;
-
         return theTotalSupply;
     }
 
     // balanceOf function
-
-    function balanceOf(address _tokenOwner) public view returns (uint256 balance) {
-        balance = balances[_tokenOwner];
+    function balanceOf(address _owner) public view returns (uint256 balance) {
+        return balances[_owner];
     }
 
+    // function approve
+    function approve(
+        address _spender,
+        uint256 _amount
+    ) public returns (bool success) {
+        // If the address is allowed
+        // to spend from this contract
+        allowed[msg.sender][_spender] = _amount;
 
-    // function approve for spending
-
-    function approve(address _spender, uint256 _amount) public returns (bool success) {
-    
-    }
-
- allowed[msg.sender][_spender] = _amount;
+        // Fire the event "Approval"
+        // to execute any logic that
+        // was listening to it
         emit Approval(msg.sender, _spender, _amount);
         return true;
-
-    
-
-    //function  transfer
-
-    function transfer(address _to, uint256 _amount) public returns (bool) {
-        emit Transfer(msg.sender, _to, _amount);
-        return true;
     }
 
-    //function transfer_From
+    // transfer function
+    function transfer(
+        address _to,
+        uint256 _amount
+    ) public returns (bool success) {
+        // transfers the value if
+        // balance of sender is
+        // greater than the amount
+        if (balances[msg.sender] >= _amount) {
+            balances[msg.sender] -= _amount;
+            balances[_to] += _amount;
 
+            // Fire a transfer event for
+            // any logic that is listening
+            emit Transfer(msg.sender, _to, _amount);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /* The transferFrom method is used for 
+   a withdraw workflow, allowing 
+   contracts to send tokens on 
+   your behalf, for example to 
+   "deposit" to a contract address 
+   and/or to charge fees in sub-currencies;*/
     function transferFrom(
         address _from,
         address _to,
         uint256 _amount
-    ) public returns (bool) {
-        //
+    ) public returns (bool success) {
+        if (
+            balances[_from] >= _amount &&
+            allowed[_from][msg.sender] >= _amount &&
+            _amount > 0 &&
+            balances[_to] + _amount > balances[_to]
+        ) {
+            balances[_from] -= _amount;
+            balances[_to] += _amount;
+
+            // Fire a Transfer event for
+            // any logic that is listening
+            emit Transfer(_from, _to, _amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    //function allowance, allowing spender to spend on behalf of token owner
-
+    // Check if address is allowed
+    // to spend on the owner's behalf
     function allowance(
-        address _tokenOwner,
+        address _owner,
         address _spender
-    ) public view returns (uint256) {}
-
-    //function owner
+    ) public view returns (uint256 remaining) {
+        return allowed[_owner][_spender];
+    }
 }

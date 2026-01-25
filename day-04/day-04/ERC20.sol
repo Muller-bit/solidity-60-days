@@ -14,7 +14,7 @@ contract GFGToken {
     mapping(address => mapping(address => uint256)) allowed;
 
     // totalSupply
-    uint256 _totalSupply = 500;
+    uint256 _totalSupply = 50000;
 
     // owner address
     address public owner;
@@ -108,7 +108,7 @@ contract GFGToken {
             return false;
         }
     }
-
+    // Check account allowance and remaining balance
     // Check if address is allowed
     // to spend on the owner's behalf
     function allowance(

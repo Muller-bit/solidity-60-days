@@ -109,6 +109,7 @@ contract GFGToken {
         }
     }
     // Check account allowance and remaining balance
+    // check also openzeppelin access contrl and ownership
     // Check if address is allowed
     // to spend on the owner's behalf
     function allowance(

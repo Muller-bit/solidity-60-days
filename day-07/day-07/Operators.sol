@@ -13,4 +13,7 @@ contract SolidityTest {
     //Initialize a variable with sum
 
     uint16 public sum = a + b;
+
+    //Initialize a variable with difference
 }
+
